@@ -7,6 +7,7 @@ moves = [1,2,3,4,5,6,7,8,9]
 player = 1
 PLAYER1_TOKEN = 'X'
 PLAYER2_TOKEN = 'O'
+game_won = False
 
 def draw_board(board):
     
@@ -32,14 +33,30 @@ def play_game():
     print '\n\nPlayer 1 will be X'
     print 'Player 2 will be O'
     
-    take_turn(player)
+    while not game_won:
+        take_turn(player)
     
-def take_turn(player):
+def take_turn(current_player):
+    global player
+    if current_player == 1:
+        moves[get_input()-1] = PLAYER1_TOKEN
+        draw_board(moves)
+        player = 2
+    elif current_player == 2:
+        moves[get_input()-1] = PLAYER2_TOKEN
+        draw_board(moves)
+        player = 1
+        
     
+def get_input():
+    print "\n\nIt is player {x}'s turn".format(x=str(player))
     player_input = raw_input('Please enter the number where you would like to move.\n')
-    moves[int(player_input)-1] = PLAYER1_TOKEN
-    draw_board(moves)
+    return int(player_input)
+    
+def is_game_won(game_won):
+    pass
     
     
 
 play_game()
+
